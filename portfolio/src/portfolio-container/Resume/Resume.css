@@ -141,6 +141,21 @@
   font-size: 12px;
   text-align: justify;
 }
+.resume-heading-technologies {
+  font-size: 12px;
+  text-align: justify;
+}
+.resume-heading-link {
+  font-size: 12px;
+  text-align: justify;
+  color: blue; /* Default link color */
+  text-decoration: underline; /* Ensures it's recognizable as a link */
+}
+
+.resume-heading-link:hover {
+  color: darkblue; /* Changes color when hovered */
+}
+
 
 .heading-date {
   background-color: #ff5823;

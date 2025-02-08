@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ScreenHeading from "../../utilities/ScreenHeading/ScreenHeading";
-import ScrollService from '../../utilities/ScrollService';
-import Animations from '../../utilities/Animations';
+import ScrollService from "../../utilities/ScrollService";
+import Animations from "../../utilities/Animations";
 import "./Resume.css";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const Resume = (props) => {
   /* STATES */
@@ -10,12 +11,12 @@ const Resume = (props) => {
   const [carousalOffsetStyle, setCarousalOffsetStyle] = useState({});
 
   let fadeInScreenHandler = (screen) => {
-    if(screen.fadeInScreen !== props.id)
-      return;
+    if (screen.fadeInScreen !== props.id) return;
 
     Animations.animations.fadeInScreen(props.id);
   };
-  const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler);
+  const fadeInSubscription =
+    ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler);
 
   /* REUSABLE MINOR COMPONENTS */
   const ResumeHeading = (props) => {
@@ -38,6 +39,40 @@ const Resume = (props) => {
         <div className="resume-heading-description">
           <span>{props.description ? props.description : ""}</span>
         </div>
+        <div className="resume-heading-link">
+          {props.link ? (
+            <a href={props.link} target="_blank" rel="noopener noreferrer">
+              Link <FaExternalLinkAlt size={14} color="blue" />{" "}
+              {/* Icon after Link */}
+            </a>
+          ) : null}
+        </div>
+      </div>
+    );
+  };
+  const WorkHeading = (props) => {
+    return (
+      <div className="resume-heading">
+        <div className="resume-main-heading">
+          <div className="heading-bullet"></div>
+          <span>{props.heading ? props.heading : ""}</span>
+          {props.fromDate && props.toDate ? (
+            <div className="heading-date">
+              {props.fromDate + "-" + props.toDate}
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+        <div className="resume-sub-heading">
+          <span>{props.subHeading ? props.subHeading : ""}</span>
+        </div>
+        <div className="resume-heading-description">
+          <span>{props.description ? props.description : ""}</span>
+          <div className="resume-heading-technologies">
+            <span>{props.technologies ? props.technologies : ""}</span>
+          </div>
+        </div>
       </div>
     );
   };
@@ -52,130 +87,90 @@ const Resume = (props) => {
   ];
 
   const programmingSkillsDetails = [
-
-    { skill: "JavaScript", ratingPercentage: 85 },
-    { skill: "React JS", ratingPercentage: 85 },
     { skill: "Flutter", ratingPercentage: 85 },
-    { skill: "C++", ratingPercentage: 89 },
-    { skill: "Node JS", ratingPercentage: 79 },
-    { skill: "Android Studio", ratingPercentage: 80 },
-    { skill: "Core Java", ratingPercentage: 80 },
-    { skill: "HTML", ratingPercentage: 80 },
-    { skill: "CSS", ratingPercentage: 80 },
+    { skill: "Get X ", ratingPercentage: 60 },
+    { skill: "Github actions CI/CD", ratingPercentage: 80 },
+  ];
+
+  const educationDetails = [
+    {
+      title: "SNS COLLEGE OF TECHNOLOGY, PG",
+      subTitle: "MASTER OF COMPUTER APPLICATIONS",
+      fromDate: "JULY 2022",
+      toDate: "JULY 2024",
+    },
+    {
+      title: "SRI RAMASAMY NAIDU MEMORIAL COLLEGE, UG",
+      subTitle: "BACHELOR OF COMPUTER APPLICATIONS",
+      fromDate: "JULY 2019",
+      toDate: "JULY 2022",
+    },
+  ];
+
+  const workExperienceDetails = [
+    {
+      company: "Admiro Soft Technologies",
+      role: "Flutter Developer (Frontend)",
+      fromDate: "APR 2024",
+      toDate: "AUG 2024",
+      description:
+        "Worked as a frontend Flutter developer, handling cross-platform projects for both web and mobile. Gained experience in UI/UX implementation and Flutter development best practices.",
+      technologies: "Flutter, Cross-platform Development",
+    },
+    {
+      company: "Elysium Intelligence and Business Solutions",
+      role: "Flutter Developer (Frontend)",
+      fromDate: "NOV 2024",
+      toDate: "FEB 2025",
+      description:
+        "Contributed as a Flutter developer, focusing on state management using GetX, API integration, and model parsing. Improved app performance and user experience through efficient state management solutions.",
+      technologies: "GetX, API Integration, Model Parsing",
+    },
   ];
 
   const projectsDetails = [
-     {
-      title: "Result Application in Flutter for our College Management",
-      duration: { fromDate: "FEB 2024", toDate: "MAR 2024" },
-      description:
-        "This is my final semester project in my Post Graduate where I developed a flutter application for my depart for result publishing ",
-    },
     {
-      title: "Cooking app Frontend",
-      duration: { fromDate: "MAR 2024", toDate: "APRIL 2024" },
+      title: "Camera App",
+      role: "Side Project",
+      fromDate: "SEP 2024",
+      toDate: "OCT 2024",
       description:
-        "I developed the Frontend UI for my Company project featuring the product of cooking receipes and video sessions.",
+        "Developed a cross-platform mobile application that utilizes device camera sensors to capture high-resolution images. Implemented custom camera controls and gallery integration for an enhanced user experience. Optimized image processing and storage using Flutter plugins to ensure efficient performance",
+      link: "https://github.com/Vishnukumardev/camera_app",
     },
-    {
-      title: "Construction Website",
-      duration: { fromDate: "APRIL 2024", toDate: "PRESENT },
-      description:
-        "This is my currently ongoing project in my company where i am developing a responsive site for a construction company",
-    },
-  
-    
   ];
 
   const resumeDetails = [
     /* EDUCATION */
     <div className="resume-screen-container" key="education">
-      <ResumeHeading
-        heading={"SNS COLLEGE OF TECHNOLOGY,PG"}
-        subHeading={"MASTER OF COMPUTER APPLICATIONS"}
-        fromDate={"2022"}
-        toDate={"EXPECTED TO COMPLETE IN 2024"}
-      />
-      <ResumeHeading
-        heading={"SRI RAMASAMY NAIDU MEMORIAL COLLEGE,UG"}
-        subHeading={"BACHLOR OF COMPUTER APPLICATIONS"}
-        fromDate={"2019"}
-        toDate={"2022"}
-      />
-      <ResumeHeading
-        heading={"HSC"}
-        subHeading={"Devangar Higher Secondary School,Aruppukottai"}
-        fromDate={"2017"}
-        toDate={"2019"}
-      />
+      {educationDetails.map((edu, index) => (
+        <ResumeHeading
+          key={index}
+          heading={edu.title}
+          subHeading={edu.subTitle}
+          fromDate={edu.fromDate}
+          toDate={edu.toDate}
+        />
+      ))}
     </div>,
     /* WORK EXPERIENCE */
+
     <div className="resume-screen-container" key="work-experience">
       <div className="experience-container">
-        <ResumeHeading
-          heading={"Corizo Tech"}
-          subHeading={"FLUTTER INTERN"}
-          fromDate={"09-2023"}
-          toDate={"10-2023"}
-        />
-        <div className="experience-description">
-          <span className="resume-description-text">
-           I learned to develop Flutter apps in this opportunity and i am able to develop cross functional apps for both IOS and android.
-          </span>
-        </div>
-        <div className="experience-description">
-          <span className="resume-description-text">
-            - By far,this has leverage my level of developing apps so that able to integraded backend services also.
-          .
-          </span>
-          <br />
-        </div>
+        {workExperienceDetails.map((work, index) => (
+          <WorkHeading
+            key={index}
+            heading={work.company}
+            subHeading={work.role}
+            fromDate={work.fromDate}
+            toDate={work.toDate}
+            description={work.description}
+            technologies={`Technologies: ${work.technologies}`}
+          />
+        ))}
       </div>
     </div>,
-            <div className="resume-screen-container" key="work-experience">
-      <div className="experience-container">
-        <ResumeHeading
-          heading={"White Crappie Technologies"}
-          subHeading={"FLUTTER INTERN"}
-          fromDate={"01-2024"}
-          toDate={"03-2024"}
-        />
-        <div className="experience-description">
-          <span className="resume-description-text">
-         In this Intern ,I gained the experience of how to get the insights of the project by executing the expectations of the client
-          </span>
-        </div>
-        <div className="experience-description">
-          <span className="resume-description-text">
-            - By far,this has leverage my level of developing apps so that able to build apps properly also.
-          .
-          </span>
-          <br />
-        </div>
-      </div>
-    </div>,
-            <div className="resume-screen-container" key="work-experience">
-      <div className="experience-container">
-        <ResumeHeading
-          heading={"Admiro Soft Technologies"}
-          subHeading={"FLUTTER DEVELOPER (FRONTEND)"}
-          fromDate={"04-2024"}
-          toDate={"PRESENT"}
-        />
-        <div className="experience-description">
-          <span className="resume-description-text">
-          I have been working for this company as a frontend developer in flutter and I have gained the experience doing the full frontend project
-          </span>
-        </div>
-        <div className="experience-description">
-          <span className="resume-description-text">
-            -This has been an wonderful expencience in my career as well as break through for my next levelin my career.
-          .
-          </span>
-          <br />
-        </div>
-      </div>
-    </div>,
+
     /* PROGRAMMING SKILLS */
     <div
       className="resume-screen-container programming-skills-container"
@@ -200,10 +195,11 @@ const Resume = (props) => {
         <ResumeHeading
           key={index}
           heading={projectsDetails.title}
-          subHeading={projectsDetails.subHeading}
+          subHeading={projectsDetails.role}
+          fromDate={projectsDetails.fromDate}
+          toDate={projectsDetails.toDate}
           description={projectsDetails.description}
-          fromDate={projectsDetails.duration.fromDate}
-          toDate={projectsDetails.duration.toDate}
+          link={projectsDetails.link}
         />
       ))}
     </div>,
@@ -267,9 +263,9 @@ const Resume = (props) => {
 
   useEffect(() => {
     return () => {
-        /* UNSUBSCRIBE THE SUBSCRIPTIONS */
-        fadeInSubscription.unsubscribe();
-    }
+      /* UNSUBSCRIBE THE SUBSCRIPTIONS */
+      fadeInSubscription.unsubscribe();
+    };
   }, [fadeInSubscription]);
 
   return (
