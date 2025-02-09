@@ -17,6 +17,7 @@ pnpm-debug.log*
 # Build output
 dist/
 
+
 # IDE and editor settings
 .vscode/
 .idea/
