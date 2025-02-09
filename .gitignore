@@ -1,7 +1,6 @@
 # Node modules
 node_modules/
 public/
-build/
 
 # Logs
 npm-debug.log*
