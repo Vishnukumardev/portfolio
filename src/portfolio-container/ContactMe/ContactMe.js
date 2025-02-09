@@ -23,7 +23,8 @@ export const ContactMe = (props) => {
     );
   
     return () => fadeInSubscription.unsubscribe();
-  }, [props.id]);  
+  }, [props.id]); // ✅ Only use `props.id` as a dependency
+  
 
   const [banner, setBanner] = useState("");
   const [bool, setBool] = useState(false);
