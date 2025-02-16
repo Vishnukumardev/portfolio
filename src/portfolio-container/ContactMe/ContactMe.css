@@ -82,7 +82,7 @@
   
   form input,
   textarea {
-    width: 100%;
+    width: 80%;
     border: 2px solid rgba(0, 0, 0, 0);
     outline: none;
     background-color: rgba(230, 230, 230, 0.6);
@@ -160,3 +160,7 @@
   .col i:hover {
     transform: scale(1.5);
   }
+  .social-icon {
+    margin-right: 10px;
+  }
+  
