@@ -87,10 +87,20 @@ const Resume = (props) => {
   ];
 
   const programmingSkillsDetails = [
-    { skill: "Flutter", ratingPercentage: 85 },
-    { skill: "Get X ", ratingPercentage: 60 },
-    { skill: "Github actions CI/CD", ratingPercentage: 80 },
-  ];
+  { skill: "Flutter", ratingPercentage: 85 },
+  { skill: "GetX", ratingPercentage: 70 },
+  { skill: "BLoC", ratingPercentage: 65 },
+  { skill: "MVVM Architecture", ratingPercentage: 65 },
+  { skill: "MVC Architecture", ratingPercentage: 75 },
+  { skill: "GitHub Actions CI/CD", ratingPercentage: 80 },
+  { skill: "RESTful APIs", ratingPercentage: 80 },
+  { skill: "Django", ratingPercentage: 65 },
+  { skill: "Laravel", ratingPercentage: 55 },
+  { skill: "Google Maps API", ratingPercentage: 70 },
+  { skill: "Payment Gateway Integration", ratingPercentage: 65 },
+  { skill: "UI/UX Implementation", ratingPercentage: 80 },
+];
+
 
   const educationDetails = [
     {
@@ -107,38 +117,48 @@ const Resume = (props) => {
     },
   ];
 
-  const workExperienceDetails = [
-    {
-      company: "Admiro Soft Technologies",
-      role: "Flutter Developer (Frontend)",
-      fromDate: "APR 2024",
-      toDate: "AUG 2024",
-      description:
-        "Worked as a frontend Flutter developer, handling cross-platform projects for both web and mobile. Gained experience in UI/UX implementation and Flutter development best practices.",
-      technologies: "Flutter, Cross-platform Development",
-    },
-    {
-      company: "Elysium Intelligence and Business Solutions",
-      role: "Flutter Developer (Frontend)",
-      fromDate: "NOV 2024",
-      toDate: "FEB 2025",
-      description:
-        "Contributed as a Flutter developer, focusing on state management using GetX, API integration, and model parsing. Improved app performance and user experience through efficient state management solutions.",
-      technologies: "GetX, API Integration, Model Parsing",
-    },
-  ];
+const workExperienceDetails = [
+  {
+    company: "Five9s Solutions",
+    role: "Associate Software Developer",
+    fromDate: "APR 2025",
+    toDate: "AUG 2025",
+    description:
+      "Worked on production-level code following the MVC architecture, implementing features and resolving real test case issues to optimize app performance. Translated Figma designs into fully functional user interfaces with high accuracy. Integrated RESTful APIs to facilitate seamless real-time data communication across the application.",
+    technologies: "Flutter, MVC Architecture, RESTful APIs",
+  },
+  {
+    company: "Admirosoft Technologies",
+    role: "Flutter Developer & Intern",
+    fromDate: "APR 2024",
+    toDate: "SEP 2024",
+    description:
+      "Worked as an Intern and Flutter Developer, developing and optimizing Flutter applications to ensure smooth UI/UX across devices. Implemented cross-platform functionality to ensure seamless integration in both web and app simultaneously.",
+    technologies: "Flutter, Cross-platform Development, UI/UX Optimization",
+  },
+];
 
-  const projectsDetails = [
-    {
-      title: "Camera App",
-      role: "Side Project",
-      fromDate: "SEP 2024",
-      toDate: "OCT 2024",
-      description:
-        "Developed a cross-platform mobile application that utilizes device camera sensors to capture high-resolution images. Implemented custom camera controls and gallery integration for an enhanced user experience. Optimized image processing and storage using Flutter plugins to ensure efficient performance",
-      link: "https://github.com/Vishnukumardev/camera_app",
-    },
-  ];
+const projectsDetails = [
+  {
+    title: "HomeFood",
+    role: "Associate Software Developer (Five9s Solutions)",
+    fromDate: "APR 2025",
+    toDate: "AUG 2025",
+    description:
+      "Contributed to the HomeFood project by resolving production issues and implementing new features as part of the development team. Applied MVC architecture and GetX for efficient state management. Integrated a payment gateway and Google Maps APIs for location tracking. Began learning Laravel to meet project backend requirements and implemented APIs for backend processing.",
+    technologies: "Flutter, MVC Architecture, GetX, Google Maps API, Payment Gateway, Laravel",
+  },
+  {
+    title: "AgriIot",
+    role: "Flutter Developer",
+    fromDate: "NOV 2024",
+    toDate: "FEB 2025",
+    description:
+      "Developed modules and implemented features such as an inventory management system. Designed and developed backend using Django to ensure efficient API functionality and seamless data flow. Converted Figma designs into functional UI components using design patterns and integrated backend APIs for a smooth user experience.",
+    technologies: "Flutter, Django, API Development, UI Design Patterns, Figma",
+  },
+];
+
 
   const resumeDetails = [
     /* EDUCATION */

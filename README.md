@@ -17,7 +17,9 @@ I am a passionate **Flutter Developer** with experience in building high-perform
 ✔️ CI/CD (GitHub Actions)  
 
 ## 📱 Projects  
-- **[Project 1](#)** - Camera App.  
+- **[HomeFood](#)** – Production-level food delivery app (MVC + GetX, Google Maps API, Payment Gateway, Laravel backend integration).  
+- **[AgriIot](#)** – IoT-based agriculture app (Flutter frontend, Django backend, inventory system, UI design patterns).  
+
 
 
 ## 📩 Connect with Me  
