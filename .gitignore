@@ -16,6 +16,7 @@ pnpm-debug.log*
 
 # Build output
 dist/
+build/
 
 
 # IDE and editor settings

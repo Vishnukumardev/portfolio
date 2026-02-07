@@ -49,7 +49,7 @@ const Profile = () => {
               {" "}
               Hire Me{" "}
             </button>
-            <a href={resumeFile} download="Vishnu Kumar_ N.pdf">
+            <a href={resumeFile} download="resume.pdf">
               <button className="btn highlighted-btn"> Get Resume </button>
             </a>
           </div>
