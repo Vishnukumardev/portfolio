@@ -1,92 +1,79 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
 import ScreenHeading from "../../utilities/ScreenHeading/ScreenHeading";
 import ScrollService from "../../utilities/ScrollService";
 import Animations from "../../utilities/Animations";
 import "./Resume.css";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
-const Resume = (props) => {
-  /* STATES */
-  const [selectedBulletIndex, setSelectedBulletIndex] = useState(0);
-  const [carousalOffsetStyle, setCarousalOffsetStyle] = useState({});
-
-  let fadeInScreenHandler = (screen) => {
-    if (screen.fadeInScreen !== props.id) return;
-
-    Animations.animations.fadeInScreen(props.id);
-  };
-  const fadeInSubscription =
-    ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler);
-
-  /* REUSABLE MINOR COMPONENTS */
-  const ResumeHeading = (props) => {
-    return (
-      <div className="resume-heading">
-        <div className="resume-main-heading">
-          <div className="heading-bullet"></div>
-          <span>{props.heading ? props.heading : ""}</span>
-          {props.fromDate && props.toDate ? (
-            <div className="heading-date">
-              {props.fromDate + "-" + props.toDate}
-            </div>
-          ) : (
-            <div></div>
-          )}
-        </div>
-        <div className="resume-sub-heading">
-          <span>{props.subHeading ? props.subHeading : ""}</span>
-        </div>
-        <div className="resume-heading-description">
-          <span>{props.description ? props.description : ""}</span>
-        </div>
-        <div className="resume-heading-link">
-          {props.link ? (
-            <a href={props.link} target="_blank" rel="noopener noreferrer">
-              Link <FaExternalLinkAlt size={14} color="blue" />{" "}
-              {/* Icon after Link */}
-            </a>
-          ) : null}
-        </div>
-      </div>
-    );
-  };
-  const WorkHeading = (props) => {
-    return (
-      <div className="resume-heading">
-        <div className="resume-main-heading">
-          <div className="heading-bullet"></div>
-          <span>{props.heading ? props.heading : ""}</span>
-          {props.fromDate && props.toDate ? (
-            <div className="heading-date">
-              {props.fromDate + "-" + props.toDate}
-            </div>
-          ) : (
-            <div></div>
-          )}
-        </div>
-        <div className="resume-sub-heading">
-          <span>{props.subHeading ? props.subHeading : ""}</span>
-        </div>
-        <div className="resume-heading-description">
-          <span>{props.description ? props.description : ""}</span>
-          <div className="resume-heading-technologies">
-            <span>{props.technologies ? props.technologies : ""}</span>
+/* MEMOIZED RESUME COMPONENTS */
+const ResumeHeading = memo((props) => {
+  return (
+    <div className="resume-heading">
+      <div className="resume-main-heading">
+        <div className="heading-bullet"></div>
+        <span>{props.heading ? props.heading : ""}</span>
+        {props.fromDate && props.toDate ? (
+          <div className="heading-date">
+            {props.fromDate + "-" + props.toDate}
           </div>
+        ) : (
+          <div></div>
+        )}
+      </div>
+      <div className="resume-sub-heading">
+        <span>{props.subHeading ? props.subHeading : ""}</span>
+      </div>
+      <div className="resume-heading-description">
+        <span>{props.description ? props.description : ""}</span>
+      </div>
+      <div className="resume-heading-link">
+        {props.link ? (
+          <a href={props.link} target="_blank" rel="noopener noreferrer">
+            Link <FaExternalLinkAlt size={14} color="blue" />{" "}
+          </a>
+        ) : null}
+      </div>
+    </div>
+  );
+});
+
+const WorkHeading = memo((props) => {
+  return (
+    <div className="resume-heading">
+      <div className="resume-main-heading">
+        <div className="heading-bullet"></div>
+        <span>{props.heading ? props.heading : ""}</span>
+        {props.fromDate && props.toDate ? (
+          <div className="heading-date">
+            {props.fromDate + "-" + props.toDate}
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </div>
+      <div className="resume-sub-heading">
+        <span>{props.subHeading ? props.subHeading : ""}</span>
+      </div>
+      <div className="resume-heading-description">
+        <span>{props.description ? props.description : ""}</span>
+        <div className="resume-heading-technologies">
+          <span>{props.technologies ? props.technologies : ""}</span>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+});
 
-  /* STATIC RESUME DATA */
-  const resumeBullets = [
-    { label: "Education", logoSrc: "education.svg" },
-    { label: "Work History", logoSrc: "work-history.svg" },
-    { label: "Programming Skills", logoSrc: "programming-skills.svg" },
-    { label: "Projects", logoSrc: "projects.svg" },
-    { label: "Interests", logoSrc: "interests.svg" },
-  ];
+/* STATIC DATA MOVED OUTSIDE COMPONENT */
+const RESUME_BULLETS = [
+  { label: "Education", logoSrc: "education.svg" },
+  { label: "Work History", logoSrc: "work-history.svg" },
+  { label: "Programming Skills", logoSrc: "programming-skills.svg" },
+  { label: "Projects", logoSrc: "projects.svg" },
+  { label: "Interests", logoSrc: "interests.svg" },
+];
 
-  const programmingSkillsDetails = [
+const PROGRAMMING_SKILLS = [
   { skill: "Flutter", ratingPercentage: 85 },
   { skill: "GetX", ratingPercentage: 70 },
   { skill: "BLoC", ratingPercentage: 65 },
@@ -101,23 +88,22 @@ const Resume = (props) => {
   { skill: "UI/UX Implementation", ratingPercentage: 80 },
 ];
 
+const EDUCATION_DETAILS = [
+  {
+    title: "SNS COLLEGE OF TECHNOLOGY, PG",
+    subTitle: "MASTER OF COMPUTER APPLICATIONS",
+    fromDate: "JULY 2022",
+    toDate: "JULY 2024",
+  },
+  {
+    title: "SRI RAMASAMY NAIDU MEMORIAL COLLEGE, UG",
+    subTitle: "BACHELOR OF COMPUTER APPLICATIONS",
+    fromDate: "JULY 2019",
+    toDate: "JULY 2022",
+  },
+];
 
-  const educationDetails = [
-    {
-      title: "SNS COLLEGE OF TECHNOLOGY, PG",
-      subTitle: "MASTER OF COMPUTER APPLICATIONS",
-      fromDate: "JULY 2022",
-      toDate: "JULY 2024",
-    },
-    {
-      title: "SRI RAMASAMY NAIDU MEMORIAL COLLEGE, UG",
-      subTitle: "BACHELOR OF COMPUTER APPLICATIONS",
-      fromDate: "JULY 2019",
-      toDate: "JULY 2022",
-    },
-  ];
-
-const workExperienceDetails = [
+const WORK_EXPERIENCE = [
   {
     company: "Five9s Solutions",
     role: "Associate Software Developer",
@@ -138,7 +124,7 @@ const workExperienceDetails = [
   },
 ];
 
-const projectsDetails = [
+const PROJECTS = [
   {
     title: "HomeFood",
     role: "Associate Software Developer (Five9s Solutions)",
@@ -159,11 +145,25 @@ const projectsDetails = [
   },
 ];
 
+const Resume = (props) => {
+  /* STATES */
+  const [selectedBulletIndex, setSelectedBulletIndex] = useState(0);
+  const [carousalOffsetStyle, setCarousalOffsetStyle] = useState({});
 
-  const resumeDetails = [
+  const fadeInScreenHandler = useCallback((screen) => {
+    if (screen.fadeInScreen !== props.id) return;
+    Animations.animations.fadeInScreen(props.id);
+  }, [props.id]);
+
+  const fadeInSubscription = useMemo(
+    () => ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler),
+    [fadeInScreenHandler]
+  );
+
+  const resumeDetails = useMemo(() => [
     /* EDUCATION */
     <div className="resume-screen-container" key="education">
-      {educationDetails.map((edu, index) => (
+      {EDUCATION_DETAILS.map((edu, index) => (
         <ResumeHeading
           key={index}
           heading={edu.title}
@@ -174,10 +174,9 @@ const projectsDetails = [
       ))}
     </div>,
     /* WORK EXPERIENCE */
-
     <div className="resume-screen-container" key="work-experience">
       <div className="experience-container">
-        {workExperienceDetails.map((work, index) => (
+        {WORK_EXPERIENCE.map((work, index) => (
           <WorkHeading
             key={index}
             heading={work.company}
@@ -190,13 +189,12 @@ const projectsDetails = [
         ))}
       </div>
     </div>,
-
     /* PROGRAMMING SKILLS */
     <div
       className="resume-screen-container programming-skills-container"
       key="programming-skills"
     >
-      {programmingSkillsDetails.map((skill, index) => (
+      {PROGRAMMING_SKILLS.map((skill, index) => (
         <div className="skill-parent" key={index}>
           <div className="heading-bullet"></div>
           <span>{skill.skill}</span>
@@ -211,7 +209,7 @@ const projectsDetails = [
     </div>,
     /* PROJECTS */
     <div className="resume-screen-container" key="projects">
-      {projectsDetails.map((projectsDetails, index) => (
+      {PROJECTS.map((projectsDetails, index) => (
         <ResumeHeading
           key={index}
           heading={projectsDetails.title}
@@ -238,21 +236,19 @@ const projectsDetails = [
         description="I like to read books from my school day .It somehjow kept on me as a habit for reading and it is fun "
       />
     </div>,
-  ];
+  ], []);
 
-  const handleCarousal = (index) => {
-    let offsetHeight = 360;
-
-    let newCarousalOffset = {
+  const handleCarousal = useCallback((index) => {
+    const offsetHeight = 360;
+    const newCarousalOffset = {
       style: { transform: "translateY(" + index * offsetHeight * -1 + "px)" },
     };
-
     setCarousalOffsetStyle(newCarousalOffset);
     setSelectedBulletIndex(index);
-  };
+  }, []);
 
-  const getBullets = () => {
-    return resumeBullets.map((bullet, index) => (
+  const getBullets = useCallback(() => {
+    return RESUME_BULLETS.map((bullet, index) => (
       <div
         onClick={() => handleCarousal(index)}
         className={
@@ -268,9 +264,9 @@ const projectsDetails = [
         <span className="bullet-label">{bullet.label}</span>
       </div>
     ));
-  };
+  }, [selectedBulletIndex, handleCarousal]);
 
-  const getResumeScreens = () => {
+  const getResumeScreens = useCallback(() => {
     return (
       <div
         style={carousalOffsetStyle.style}
@@ -279,7 +275,7 @@ const projectsDetails = [
         {resumeDetails.map((ResumeDetail) => ResumeDetail)}
       </div>
     );
-  };
+  }, [carousalOffsetStyle, resumeDetails]);
 
   useEffect(() => {
     return () => {
@@ -310,4 +306,4 @@ const projectsDetails = [
   );
 };
 
-export default Resume;
+export default memo(Resume);

@@ -11,9 +11,20 @@ export default class ScrollService {
   static currentScreenFadeIn = new Subject();
 
   constructor() {
-    /* ADD SCROLL EVENT TO WINDOW */
-    window.addEventListener('scroll', this.checkCurrentScreenUnderViewport);
+    /* ADD SCROLL EVENT TO WINDOW WITH DEBOUNCING FOR PERFORMANCE */
+    this.scrollTimeout = null;
+    window.addEventListener('scroll', this.debouncedScroll, { passive: true });
   }
+
+  /* DEBOUNCED SCROLL HANDLER - IMPROVES PERFORMANCE */
+  debouncedScroll = () => {
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
+    }
+    this.scrollTimeout = setTimeout(() => {
+      this.checkCurrentScreenUnderViewport();
+    }, 50);
+  };
 
   /* SCROLL TO HIRE ME / CONTACT ME SCREEN */
   scrollToHireMe = () => {
@@ -48,9 +59,7 @@ export default class ScrollService {
   };
   
   /* CHECK THE SCREEN THATS CURRENTLY UNDER VIEWPORT */
-  checkCurrentScreenUnderViewport = (event) => {
-    if(!event || Object.keys(event).length < 1)
-    return;
+  checkCurrentScreenUnderViewport = () => {
 
     for(let screen of TOTAL_SCREENS){
       let screenFromDOM = document.getElementById(screen.screen_name);

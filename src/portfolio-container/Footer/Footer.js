@@ -1,26 +1,26 @@
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import './Footer.css'
-import { faFacebook, faLinkedin, faGithub, faInstagram } from "@fortawesome/free-brands-svg-icons"
+import { faFacebook, faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Footer = () => {
-    /* SOCIALS STATIC DATA */
-    let socialDetails = [ { icon: faFacebook, link: '#' },
-                          { icon: faLinkedin, link: '#' },
-                        //   { icon: faGithub, link: '' },
-                          { icon: faInstagram, link: '#' } ]
+const SOCIAL_DETAILS = [
+  { icon: faFacebook, link: '#' },
+  { icon: faLinkedin, link: '#' },
+  { icon: faInstagram, link: '#' }
+];
 
+const Footer = memo(() => {
     /* GET CURRENT YEAR */
-    let currentYear = new Date().getFullYear();
+    const currentYear = useMemo(() => new Date().getFullYear(), []);
 
     /* RENDER SOCIAL ICONS */
-    const getSocials = () => {
-        return (socialDetails.map((social,index) => (
+    const getSocials = useMemo(() => {
+        return (SOCIAL_DETAILS.map((social, index) => (
             <a rel="noopener noreferrer" key={index} href={social.link} target="_blank" >
                 <FontAwesomeIcon className="social-icon" icon={social.icon} />
             </a>
         )));
-    }
+    }, []);
 
     return (
         <div className="main-footer-container">
@@ -29,11 +29,12 @@ const Footer = () => {
                     <span> Created by Vishnu Kumar { currentYear } </span>
                 </div>
                 <div className="main-footer-socials">
-                    { getSocials() }
+                    { getSocials }
                 </div>
             </div>
         </div>
     )
-}
+});
 
+Footer.displayName = "Footer";
 export default Footer;

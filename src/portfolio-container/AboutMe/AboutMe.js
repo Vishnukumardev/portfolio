@@ -1,32 +1,33 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback, useMemo } from 'react'
 import ScreenHeading from '../../utilities/ScreenHeading/ScreenHeading';
 import ScrollService from '../../utilities/ScrollService';
 import Animations from '../../utilities/Animations';
 
 import './AboutMe.css';
 
+const SCREEN_CONSTANTS = { 
+    description: "Mobile apps developing is my strong side of my skills. Apart from that, I am also able to work on full stack development also.I am willing to become an valuable asset to an organisation. ",
+    highlights: {
+        bullets: [
+            "Flutter Mobile App development",
+            "Interactive Front End as per the design",
+            "React web development",
+            "Android Mobile Development",
+            "Gis Web Apps",         
+       ],
+       heading: "Here are a Few Highlights:"
+    }
+}
+
 const AboutMe = (props) => {
 
-    let fadeInScreenHandler = (screen) => {
+    const fadeInScreenHandler = useCallback((screen) => {
         if(screen.fadeInScreen !== props.id)
         return;
         Animations.animations.fadeInScreen(props.id);
-    } 
-    const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler);
-
-    const SCREEN_CONSTANTS = { 
-        description: "Mobile apps developing is my strong side of my skills. Apart from that, I am also able to work on full stack development also.I am willing to become an valuable asset to an organisation. ",
-        highlights: {
-            bullets: [
-                "Flutter Mobile App development",
-                "Interactive Front End as per the design",
-                "React web development",
-                "Android Mobile Development",
-                "Gis Web Apps",         
-           ],
-           heading: "Here are a Few Highlights:"
-        }
-    }
+    }, [props.id]);
+    
+    const fadeInSubscription = useMemo(() => ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler), [fadeInScreenHandler]);
 
     const renderHighlights = () => {
         return (
@@ -73,4 +74,4 @@ const AboutMe = (props) => {
     )
 }
 
-export default AboutMe;
+export default React.memo(AboutMe);

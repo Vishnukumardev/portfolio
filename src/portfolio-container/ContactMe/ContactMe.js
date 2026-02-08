@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback, useMemo, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookSquare,
@@ -19,15 +19,18 @@ import emailjs from "@emailjs/browser";
 import imgBack from "../../../src/images/im4.jpg";
 import load1 from "../../../src/images/load2.gif";
 
-export const ContactMe = (props) => {
+const ContactMe = (props) => {
   const form = useRef();
-  let fadeInScreenHandler = (screen) => {
+  
+  const fadeInScreenHandler = useCallback((screen) => {
     if (screen.fadeInScreen !== props.id) return;
-
     Animations.animations.fadeInScreen(props.id);
-  };
-  const fadeInSubscription =
-    ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler);
+  }, [props.id]);
+
+  const fadeInSubscription = useMemo(
+    () => ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler),
+    [fadeInScreenHandler]
+  );
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -42,7 +45,7 @@ export const ContactMe = (props) => {
     };
   }, [fadeInSubscription]);
 
-  const formSubmit = async (e) => {
+  const formSubmit = useCallback(async (e) => {
     e.preventDefault();
     setBool(true);
     emailjs
@@ -67,7 +70,14 @@ export const ContactMe = (props) => {
           setBool(false);
         }
       );
-  };
+  }, []);
+
+  const handleReset = useCallback(() => {
+    setName("");
+    setEmail("");
+    setMessage("");
+    setBanner("");
+  }, []);
 
   return (
     <div className="main-container" id={props.id || ""}>
@@ -86,7 +96,7 @@ export const ContactMe = (props) => {
         <div className="back-form">
           <div className="img-back">
             <h4>Send your message</h4>
-            <img src={imgBack} alt="" />
+            <img src={imgBack} alt="contact background" loading="lazy" />
           </div>
           <form ref={form} onSubmit={formSubmit}>
             <p>{banner}</p>
@@ -105,13 +115,13 @@ export const ContactMe = (props) => {
                 Send <i className="fa fa-paper-plane"></i>
                 {bool ? (
                   <b className="load">
-                    <img src={load1} alt="load1" />
+                    <img src={load1} alt="loading" loading="lazy" />
                   </b>
                 ) : (
                   ""
                 )}
               </button>
-              <button type="reset" onClick={() => { setName(""); setEmail(""); setMessage(""); setBanner(""); }}>Clear</button>
+              <button type="reset" onClick={handleReset}>Clear</button>
             </div>
           </form>
         </div>
@@ -121,4 +131,4 @@ export const ContactMe = (props) => {
   );
 };
 
-export default ContactMe;
+export default memo(ContactMe);

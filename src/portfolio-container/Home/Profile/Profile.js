@@ -1,10 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import ScrollService from ".././../../utilities/ScrollService";
 import "./Profile.css";
 import Typical from "react-typical";
 import resumeFile from "../../../assets/files/resume.pdf";
 
-const Profile = () => {
+const Profile = memo(() => {
   return (
     <div className="profile-container">
       <div className="profile-parent">
@@ -60,5 +60,5 @@ const Profile = () => {
       </div>
     </div>
   );
-};
+});
 export default Profile;

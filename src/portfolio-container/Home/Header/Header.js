@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, memo } from 'react';
 import { TOTAL_SCREENS, GET_SCREEN_INDEX } from '../../../utilities/commonUtils';
 import ScrollService from '../../../utilities/ScrollService';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +11,7 @@ const Header = () => {
     const [selectedScreen, setSelectedScreen] = useState(0);
     const [showHeaderOptions, setShowHeaderOptions] = useState(false);
 
-    const updateCurrentScreen = (currentScreen) => {
+    const updateCurrentScreen = useCallback((currentScreen) => {
         if (!currentScreen || !currentScreen.screenInView)
             return;
 
@@ -20,12 +20,36 @@ const Header = () => {
             return;
 
         setSelectedScreen(screenIndex);
-    }
+    }, []);
 
     /* SUBSCRIPTIONS */
-    let currentScreenSubscription = ScrollService.currentScreenBroadcaster.subscribe(updateCurrentScreen);
+    const currentScreenSubscription = useMemo(
+        () => ScrollService.currentScreenBroadcaster.subscribe(updateCurrentScreen),
+        [updateCurrentScreen]
+    );
 
-    const getHeaderOptions = () => {
+    const getHeaderOptionsClasses = useCallback((index) => {
+        let classes = "header-option ";
+        if (index < TOTAL_SCREENS.length - 1)
+            classes += "header-option-seperator ";
+
+        if (selectedScreen === index)
+            classes += "selected-header-option ";
+
+        return classes;
+    }, [selectedScreen]);
+
+    const switchScreen = useCallback((index, screen) => {
+        let screenComponent = document.getElementById(screen.screen_name);
+        if (!screenComponent)
+            return;
+
+        screenComponent.scrollIntoView({ behavior: 'smooth' });
+        setSelectedScreen(index);
+        setShowHeaderOptions(false);
+    }, []);
+
+    const getHeaderOptions = useCallback(() => {
         return (
             TOTAL_SCREENS.map((Screen, i) => (
                 <div key={Screen.screen_name} className={getHeaderOptionsClasses(i)}
@@ -35,28 +59,11 @@ const Header = () => {
                 </div>
             ))
         )
-    }
+    }, [getHeaderOptionsClasses, switchScreen]);
 
-    const getHeaderOptionsClasses = (index) => {
-        let classes = "header-option ";
-        if (index < TOTAL_SCREENS.length - 1)
-            classes += "header-option-seperator ";
-
-        if (selectedScreen === index)
-            classes += "selected-header-option ";
-
-        return classes;
-    }
-
-    const switchScreen = (index, screen) => {
-        let screenComponent = document.getElementById(screen.screen_name);
-        if (!screenComponent)
-            return;
-
-        screenComponent.scrollIntoView({ behavior: 'smooth' });
-        setSelectedScreen(index);
-        setShowHeaderOptions(false);
-    }
+    const toggleHeaderOptions = useCallback(() => {
+        setShowHeaderOptions(prev => !prev);
+    }, []);
 
     useEffect(() => {
         return () => {
@@ -66,9 +73,9 @@ const Header = () => {
     }, [currentScreenSubscription]);
 
     return (
-        <div className="header-container" onClick={() => setShowHeaderOptions(!showHeaderOptions)}>
+        <div className="header-container" onClick={toggleHeaderOptions}>
             <div className="header-parent">
-                <div className="header-hamburger" onClick={() => setShowHeaderOptions(!showHeaderOptions)}>
+                <div className="header-hamburger" onClick={toggleHeaderOptions}>
                     <FontAwesomeIcon className="header-hamburger-bars" icon={faBars} />
                 </div>
                 <div className="header-logo">
@@ -82,4 +89,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default memo(Header);

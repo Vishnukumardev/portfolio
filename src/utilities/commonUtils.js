@@ -1,11 +1,13 @@
-import Home from '../portfolio-container/Home/Home';
-import AboutMe from '../portfolio-container/AboutMe/AboutMe';
-import Resume from '../portfolio-container/Resume/Resume';
-import ContactMe from '../portfolio-container/ContactMe/ContactMe';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, lazy } from 'react';
 import LoadingBar from 'react-top-loading-bar'
 import loaderService from '../services/loader-service/loader-service';
 import './commonUtils.css'
+
+/* LAZY LOAD COMPONENTS FOR BETTER CODE SPLITTING */
+const Home = lazy(() => import('../portfolio-container/Home/Home'));
+const AboutMe = lazy(() => import('../portfolio-container/AboutMe/AboutMe'));
+const Resume = lazy(() => import('../portfolio-container/Resume/Resume'));
+const ContactMe = lazy(() => import('../portfolio-container/ContactMe/ContactMe'));
 
 /* TOTAL NUMBER OF SCREENS */
 export const TOTAL_SCREENS = [
