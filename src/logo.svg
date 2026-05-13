@@ -1,0 +1,41 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#0A0F1C"/>
+
+  <!-- Hair -->
+  <path d="M140 180 
+           C170 70, 340 70, 372 180
+           C350 145, 310 130, 256 130
+           C202 130, 162 145, 140 180"
+        fill="#F7FAFF"/>
+
+  <!-- Hair spikes -->
+  <path d="M170 155 L145 100 L190 140 Z" fill="#EAF6FF"/>
+  <path d="M220 140 L205 85 L245 130 Z" fill="#EAF6FF"/>
+  <path d="M290 140 L310 85 L330 140 Z" fill="#EAF6FF"/>
+  <path d="M340 155 L370 100 L320 140 Z" fill="#EAF6FF"/>
+
+  <!-- Face -->
+  <ellipse cx="256" cy="265" rx="120" ry="145" fill="#E7EDF5"/>
+
+  <!-- Blindfold -->
+  <rect x="150" y="215" width="212" height="42" rx="18" fill="#111827"/>
+  <rect x="160" y="222" width="192" height="8" rx="4" fill="#4FD1FF" opacity="0.7"/>
+
+  <!-- Nose -->
+  <path d="M256 260 L248 290 L264 290" 
+        stroke="#C8D2E0" 
+        stroke-width="4" 
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Mouth -->
+  <path d="M225 330 Q256 345 287 330" 
+        stroke="#A0AEC0" 
+        stroke-width="5"
+        fill="none"
+        stroke-linecap="round"/>
+
+  <!-- Glow -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="#4FD1FF" stroke-width="4" opacity="0.25"/>
+</svg>
