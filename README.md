@@ -23,11 +23,11 @@ I am a passionate **Flutter Developer** with experience in building high-perform
 
 
 ## 📩 Connect with Me  
-📧 Email: [your-email@example.com](vishnusoftwaredev.com)  
-🐦 Twitter: [@your_twitter](https://twitter.com/your_twitter)  
-💼 LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)  
-📷 Instagram: [@your_instagram](https://instagram.com/your_instagram)  
-👨‍💻 Portfolio: [yourwebsite.com](https://yourwebsite.com)  
+📧 Email: [vishnusoftwaredev@gmail.com] 
+🐦 Twitter: [@your_twitter]  
+💼 LinkedIn: [Your LinkedIn] 
+📷 Instagram: [@your_instagram] 
+👨‍💻 Portfolio: [yourwebsite.com  
 
 ## ⭐ GitHub Stats  
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Vishnukumardev&show_icons=true&theme=radical)  
