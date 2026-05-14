@@ -1,17 +1,24 @@
-import React, { useState, useEffect, useCallback, useMemo, memo } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { TOTAL_SCREENS, GET_SCREEN_INDEX } from '../../../utilities/commonUtils';
 import ScrollService from '../../../utilities/ScrollService';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Header.css';
 
-const Header = () => {
+// 1. Define strict type interfaces for the screen properties
+interface ScreenItem {
+  screen_name: string;
+  component: React.ComponentType<any> | null;
+}
 
+
+const Header: React.FC = () => {
     /* STATES TO BE USED */
-    const [selectedScreen, setSelectedScreen] = useState(0);
-    const [showHeaderOptions, setShowHeaderOptions] = useState(false);
+    const [selectedScreen, setSelectedScreen] = useState<number>(0);
+    const [showHeaderOptions, setShowHeaderOptions] = useState<boolean>(false);
 
-    const updateCurrentScreen = useCallback((currentScreen) => {
+    // 2. Map screen event parameter safely to handle potential unknown type queries
+    const updateCurrentScreen = useCallback((currentScreen: any) => {
         if (!currentScreen || !currentScreen.screenInView)
             return;
 
@@ -22,13 +29,17 @@ const Header = () => {
         setSelectedScreen(screenIndex);
     }, []);
 
-    /* SUBSCRIPTIONS */
-    const currentScreenSubscription = useMemo(
-        () => ScrollService.currentScreenBroadcaster.subscribe(updateCurrentScreen),
-        [updateCurrentScreen]
-    );
+    // 3. Merged subscription allocation and cleanup pipelines natively into useEffect
+    useEffect(() => {
+        const currentScreenSubscription = ScrollService.currentScreenBroadcaster.subscribe(updateCurrentScreen);
 
-    const getHeaderOptionsClasses = useCallback((index) => {
+        return () => {
+            /* CLEANUP: Securely destroy current event subscriptions on component teardown */
+            currentScreenSubscription.unsubscribe();
+        }
+    }, [updateCurrentScreen]);
+
+    const getHeaderOptionsClasses = useCallback((index: number) => {
         let classes = "header-option ";
         if (index < TOTAL_SCREENS.length - 1)
             classes += "header-option-seperator ";
@@ -39,7 +50,7 @@ const Header = () => {
         return classes;
     }, [selectedScreen]);
 
-    const switchScreen = useCallback((index, screen) => {
+    const switchScreen = useCallback((index: number, screen: ScreenItem) => {
         let screenComponent = document.getElementById(screen.screen_name);
         if (!screenComponent)
             return;
@@ -51,7 +62,7 @@ const Header = () => {
 
     const getHeaderOptions = useCallback(() => {
         return (
-            TOTAL_SCREENS.map((Screen, i) => (
+            (TOTAL_SCREENS as ScreenItem[]).map((Screen, i) => (
                 <div key={Screen.screen_name} className={getHeaderOptionsClasses(i)}
                     onClick={() => switchScreen(i, Screen)}
                 >
@@ -64,13 +75,6 @@ const Header = () => {
     const toggleHeaderOptions = useCallback(() => {
         setShowHeaderOptions(prev => !prev);
     }, []);
-
-    useEffect(() => {
-        return () => {
-            /* UNSUBSCRIBE THE SUBSCRIPTIONS */
-            currentScreenSubscription.unsubscribe();
-        }
-    }, [currentScreenSubscription]);
 
     return (
         <div className="header-container" onClick={toggleHeaderOptions}>

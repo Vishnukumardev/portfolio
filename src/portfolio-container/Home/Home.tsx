@@ -4,9 +4,16 @@ import Profile from "./Profile/Profile";
 import Footer from "./Footer/Footer";
 import "./Home.css";
 
-const Home = memo((props) => {
+// 1. Define structural interface contract for container elements
+interface HomeProps {
+  id?: string;
+}
+
+const Home: React.FC<HomeProps> = memo((props) => {
+  const { id = "" } = props;
+
   return (
-    <div className="home-container" id={props.id || ""}>
+    <div className="home-container" id={id}>
       <Header />
       <Profile />
       <Footer />

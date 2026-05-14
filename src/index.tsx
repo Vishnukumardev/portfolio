@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const container = document.getElementById('root');
-const root = createRoot(container);
+const root = createRoot(container as HTMLElement); // Updated to use createRoot and type assertion
 root.render(
   <React.StrictMode>
     <App />

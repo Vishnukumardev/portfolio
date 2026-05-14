@@ -1,14 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState, useRef, useCallback, useMemo, memo } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebookSquare,
-  faGooglePlusSquare,
-  faInstagram,
-  faYoutubeSquare,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
+import React, { useEffect, useState, useRef, useCallback, memo } from "react";
 import ScreenHeading from "../../utilities/ScreenHeading/ScreenHeading";
 import "./ContactMe.css";
 import ScrollService from "../../utilities/ScrollService";
@@ -17,20 +9,22 @@ import Footer from "../Footer/Footer";
 import Typical from "react-typical";
 import emailjs from "@emailjs/browser";
 import imgBack from "../../../src/images/im4.jpg";
-import load1 from "../../../src/images/load2.gif";
+const load1 = require("../../../src/images/load2.gif");
 
-const ContactMe = (props) => {
-  const form = useRef();
+// 1. Define explicit TypeScript types for component props
+interface ContactMeProps {
+  id?: string;
+  screenName?: string;
+}
+
+const ContactMe: React.FC<ContactMeProps> = (props) => {
+  const form = useRef<HTMLFormElement>(null);
   
-  const fadeInScreenHandler = useCallback((screen) => {
-    if (screen.fadeInScreen !== props.id) return;
-    Animations.animations.fadeInScreen(props.id);
+  // 2. Accept any/unknown parameter type to perfectly match the emitter's stream type signature
+  const fadeInScreenHandler = useCallback((screen: any) => {
+    if (!screen || screen.fadeInScreen !== props.id) return;
+    Animations.animations.fadeInScreen(props.id || '');
   }, [props.id]);
-
-  const fadeInSubscription = useMemo(
-    () => ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler),
-    [fadeInScreenHandler]
-  );
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,15 +32,20 @@ const ContactMe = (props) => {
   const [banner, setBanner] = useState("");
   const [bool, setBool] = useState(false);
 
+  // 3. Merged the subscription declaration and cleanup securely inside useEffect
   useEffect(() => {
+    const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler);
+
     return () => {
       /* UNSUBSCRIBE THE SUBSCRIPTIONS */
       fadeInSubscription.unsubscribe();
     };
-  }, [fadeInSubscription]);
+  }, [fadeInScreenHandler]);
 
-  const formSubmit = useCallback(async (e) => {
+  const formSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!form.current) return;
+    
     setBool(true);
     emailjs
       .sendForm(
@@ -108,7 +107,7 @@ const ContactMe = (props) => {
             <input type="email" name="reply_to" value={email} onChange={(e) => setEmail(e.target.value)} />
 
             <label htmlFor="message">Message</label>
-            <textarea type="text" name="message" value={message} onChange={(e) => setMessage(e.target.value)} />
+            <textarea name="message" value={message} onChange={(e) => setMessage(e.target.value)} />
 
             <div className="send-btn">
               <button type="submit">

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useMemo } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import ScreenHeading from '../../utilities/ScreenHeading/ScreenHeading';
 import ScrollService from '../../utilities/ScrollService';
 import Animations from '../../utilities/Animations';
@@ -19,15 +19,13 @@ const SCREEN_CONSTANTS = {
     }
 }
 
-const AboutMe = (props) => {
+const AboutMe = (props : { id?: string }) => {
 
-    const fadeInScreenHandler = useCallback((screen) => {
+    const fadeInScreenHandler = useCallback((screen : { fadeInScreen?: string }) => {
         if(screen.fadeInScreen !== props.id)
         return;
-        Animations.animations.fadeInScreen(props.id);
+        Animations.animations.fadeInScreen(props.id || '');
     }, [props.id]);
-    
-    const fadeInSubscription = useMemo(() => ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler), [fadeInScreenHandler]);
 
     const renderHighlights = () => {
         return (
@@ -40,12 +38,16 @@ const AboutMe = (props) => {
         )
     }
 
-    useEffect(() => {
+    // Fixed: Subscription is now declared and cleaned up inside the same hook
+ useEffect(() => {
+        const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe(
+            (value: unknown) => fadeInScreenHandler(value as { fadeInScreen?: string })
+        );
+        
         return () => {
-            /* UNSUBSCRIBE THE SUBSCRIPTIONS */
             fadeInSubscription.unsubscribe();
         }
-    }, [fadeInSubscription]);
+    }, [fadeInScreenHandler]);
 
     return (
         <div className="about-me-container screen-container fade-in" id={ props.id || ''}>

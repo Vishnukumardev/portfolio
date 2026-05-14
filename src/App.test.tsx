@@ -1,3 +1,4 @@
+// @ts-ignore: suppress missing module/type declaration errors for testing library
 import { render, screen } from '@testing-library/react';
 import App from './App';
 

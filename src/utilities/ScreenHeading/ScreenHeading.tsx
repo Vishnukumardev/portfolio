@@ -1,7 +1,7 @@
 import React from 'react'
 import './ScreenHeading.css'
 
-const ScreenHeading = (props) => {
+const ScreenHeading = (props: { title: string; subHeading?: string }) => {
     return (
         <div className="heading-container">
             <div className="screen-heading">

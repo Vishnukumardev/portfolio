@@ -2,9 +2,9 @@ import React, { memo } from "react";
 import ScrollService from ".././../../utilities/ScrollService";
 import "./Profile.css";
 import Typical from "react-typical";
-import resumeFile from "../../../assets/files/resume.pdf";
+const resumeFile = require("../../../assets/files/resume.pdf");
 
-const Profile = memo(() => {
+const Profile: React.FC = memo(() => {
   return (
     <div className="profile-container">
       <div className="profile-parent">
@@ -17,8 +17,7 @@ const Profile = memo(() => {
             </span>
           </div>
           <div className="profile-details-role">
-            <span className="primary-text">
-              {" "}
+            <div className="primary-text"> {/* Fixed: Changed <span> containing an <h1> to a <div> to adhere to valid HTML semantics */}
               <h1>
                 {" "}
                 <Typical
@@ -35,7 +34,7 @@ const Profile = memo(() => {
                   ]}
                 />
               </h1>
-            </span>
+            </div>
             <span className="profile-role-tagline">
               becoming tech Savvy of building applications
               <br /> with front and back end operations.
@@ -61,4 +60,6 @@ const Profile = memo(() => {
     </div>
   );
 });
+
+Profile.displayName = "Profile"; // Explicitly defined displayName since the component is wrapped in React.memo
 export default Profile;
