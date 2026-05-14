@@ -24,7 +24,7 @@ I am a passionate **Flutter Developer** with experience in building high-perform
 
 ## 📩 Connect with Me  
 📧 Email: [vishnusoftwaredev@gmail.com](vishnusoftwaredev.com)  
-🐦 Twitter: [https://twitter.com/your_twitter/@G_oJ_o](https://twitter.com/your_twitter)  
+🐦 Twitter: [https://twitter.com/@G_oJ_o](https://twitter.com/your_twitter)  
 💼 LinkedIn: [https://www.linkedin.com/in/vishnu-kumar-n/](https://linkedin.com/in/yourprofile)   
 👨‍💻 Portfolio: [https://vishnukumardev.github.io/portfolio/](https://yourwebsite.com)  
 
