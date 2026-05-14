@@ -23,7 +23,7 @@ I am a passionate **Flutter Developer** with experience in building high-perform
 
 
 ## 📩 Connect with Me  
-📧 Email: [your-email@example.com](vishnusoftwaredev.com)  
+📧 Email: [vishnusoftwaredev@gmail.com](vishnusoftwaredev.com)  
 🐦 Twitter: [@your_twitter](https://twitter.com/your_twitter)  
 💼 LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)  
 📷 Instagram: [@your_instagram](https://instagram.com/your_instagram)  
