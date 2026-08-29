@@ -38,6 +38,10 @@ const AboutMe = (props : { id?: string }) => {
         )
     }
 
+const login = () => {
+    
+}
+
     // Fixed: Subscription is now declared and cleaned up inside the same hook
  useEffect(() => {
         const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe(
@@ -68,6 +72,7 @@ const AboutMe = (props : { id?: string }) => {
                          <a href="Vishnu Kumar N.pdf" download="Vishnu Kumar.pdf">
                             <button className="btn highlighted-btn"> Get Resume </button>
                          </a>
+                         <button className="btn primary-btn" onClick={() => ScrollService.scrollHandler.scrollToHireMe()}> Login </button>
                     </div>
                 </div>
                 </div>

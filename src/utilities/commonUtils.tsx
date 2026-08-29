@@ -13,21 +13,15 @@ const ContactMe = lazy(() => import('../portfolio-container/ContactMe/ContactMe'
 
 /* TOTAL NUMBER OF SCREENS */
 export const TOTAL_SCREENS = [
-  {
-    screen_name: "Home",
-    component: Home
-  },
-  {
-    screen_name: "About Me",
-    component: AboutMe
-  },
+  { screen_name: "Home", component: Home },
+  { screen_name: "About Me", component: AboutMe },
   { screen_name: "Resume", component: Resume },
-  // { screen_name: "Portfolio", component: null },
   { screen_name: "Contact Me", component: ContactMe }
+
 ];
 
 /* GET SCREEN INDEX */
-export const GET_SCREEN_INDEX = (screen_name : string) => {
+export const GET_SCREEN_INDEX = (screen_name: string) => {
   if (!screen_name)
     return -1;
 

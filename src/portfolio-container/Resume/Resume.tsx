@@ -4,6 +4,11 @@ import ScrollService from "../../utilities/ScrollService";
 import Animations from "../../utilities/Animations";
 import "./Resume.css";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import eduLogo from '../../assets/Resume/education.svg';
+import worklogo from '../../assets/Resume/work-history.svg';
+import interLogo from '../../assets/Resume/interests.svg';
+import programLogo from '../../assets/Resume/programming-skills.svg';
+import projectLogo from '../../assets/Resume/projects.svg'
 
 /* 1. DEFINE EXPLICIT TYPES FOR ALL COMPONENT INTERFACES */
 interface ResumeProps {
@@ -89,11 +94,11 @@ WorkHeading.displayName = "WorkHeading";
 
 /* STATIC CONSTANTS */
 const RESUME_BULLETS = [
-  { label: "Education", logoSrc: "education.svg" },
-  { label: "Work History", logoSrc: "work-history.svg" },
-  { label: "Programming Skills", logoSrc: "programming-skills.svg" },
-  { label: "Projects", logoSrc: "projects.svg" },
-  { label: "Interests", logoSrc: "interests.svg" },
+  { label: "Education", logoSrc: eduLogo },
+  { label: "Work History", logoSrc: worklogo },
+  { label: "Programming Skills", logoSrc: programLogo },
+  { label: "Projects", logoSrc: projectLogo },
+  { label: "Interests", logoSrc: interLogo },
 ];
 
 const PROGRAMMING_SKILLS = [
@@ -174,7 +179,7 @@ const Resume: React.FC<ResumeProps> = (props) => {
   // 3. Merged layout creation and unsubscription safely inside useEffect
   useEffect(() => {
     const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler);
-    
+
     return () => {
       /* UNSUBSCRIBE THE SUBSCRIPTIONS */
       fadeInSubscription.unsubscribe();
@@ -189,7 +194,7 @@ const Resume: React.FC<ResumeProps> = (props) => {
     setSelectedBulletIndex(index);
   };
 
-   const getBullets = () => {
+  const getBullets = () => {
     return RESUME_BULLETS.map((bullet, index) => (
       <div
         onClick={() => handleCarousal(index)}
@@ -198,9 +203,8 @@ const Resume: React.FC<ResumeProps> = (props) => {
       >
         <img
           className="bullet-logo"
-          /* FIXED: Changed path from '../../../assets/resume' to '../../assets/resume' */
-          src={require(`../../assets/resume/${bullet.logoSrc}`)}
-          alt="B"
+          src={bullet.logoSrc}
+          alt={bullet.label}
         />
         <span className="bullet-label">{bullet.label}</span>
       </div>
