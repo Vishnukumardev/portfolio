@@ -135,8 +135,8 @@ const WORK_EXPERIENCE = [
   {
     company: "Five9s Solutions",
     role: "Associate Software Developer",
-    fromDate: "APR 2025",
-    toDate: "AUG 2026",
+    fromDate: "APR 2024",
+    toDate: "SEP 2025",
     description:
       "Worked on production-level code following the MVC architecture, implementing features and resolving real test case issues to optimize app performance. Translated Figma designs into fully functional user interfaces with high accuracy. Integrated RESTful APIs to facilitate seamless real-time data communication across the application.",
     technologies: "Flutter, MVC Architecture, RESTful APIs",
@@ -147,8 +147,8 @@ const PROJECTS = [
   {
     title: "HomeFood",
     role: "Associate Software Developer (Five9s Solutions)",
-    fromDate: "APR 2025",
-    toDate: "AUG 2026",
+    fromDate: "APR 2024",
+    toDate: "SEP 2025",
     description:
       "Contributed to the HomeFood project by resolving production issues and implementing new features as part of the development team. Applied MVC architecture and GetX for efficient state management. Integrated a payment gateway and Google Maps APIs for location tracking. Began learning Laravel to meet project backend requirements and implemented APIs for backend processing.",
     technologies: "Flutter, MVC Architecture, GetX, Google Maps API, Payment Gateway, Laravel",
@@ -157,8 +157,8 @@ const PROJECTS = [
   {
     title: "AgriIot",
     role: "Associate Software Developer (Five9s Solutions)",
-    fromDate: "APR 2025",
-    toDate: "AUG 2025",
+    fromDate: "APR 2024",
+    toDate: "SEP 2025",
     description:
       "Developed modules and implemented features such as an inventory management system. Designed and developed backend using Django to ensure efficient API functionality and seamless data flow. Converted Figma designs into functional UI components using design patterns and integrated backend APIs for a smooth user experience.",
     technologies: "Flutter, Django, API Development, UI Design Patterns, Figma",
