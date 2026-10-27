@@ -1,5 +1,5 @@
-import { TOTAL_SCREENS } from './commonUtils';
-import { Subject } from 'rxjs';
+import { TOTAL_SCREENS } from "./commonUtils";
+import { Subject } from "rxjs";
 
 // 1. Define internal telemetry data structures for your broadcasters
 export interface ScreenInViewEvent {
@@ -23,7 +23,7 @@ export default class ScrollService {
 
   constructor() {
     /* ADD SCROLL EVENT TO WINDOW WITH DEBOUNCING FOR PERFORMANCE */
-    window.addEventListener('scroll', this.debouncedScroll, { passive: true });
+    window.addEventListener("scroll", this.debouncedScroll, { passive: true });
   }
 
   /* DEBOUNCED SCROLL HANDLER - IMPROVES PERFORMANCE */
@@ -65,7 +65,7 @@ export default class ScrollService {
         return false;
     }
   };
-  
+
   /* CHECK THE SCREEN THATS CURRENTLY UNDER VIEWPORT */
   checkCurrentScreenUnderViewport = (): void => {
     for (const screen of TOTAL_SCREENS) {
@@ -82,20 +82,20 @@ export default class ScrollService {
         if (partiallyVisible && !screenObj.alreadyRendered) {
           // BROADCAST FADE IN EFFECT - Matches interface contracts cleanly
           ScrollService.currentScreenFadeIn.next({
-            fadeInScreen: screen.screen_name
+            fadeInScreen: screen.screen_name,
           });
-          screenObj['alreadyRendered'] = true;
+          screenObj["alreadyRendered"] = true;
           break;
         }
 
         if (fullyVisible) {
           // BROADCAST SCREEN NAME - Matches interface contracts cleanly
           ScrollService.currentScreenBroadcaster.next({
-            screenInView: screen.screen_name
+            screenInView: screen.screen_name,
           });
           break;
         }
       }
     }
-  }
+  };
 }

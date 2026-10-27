@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "module": "es2022",                /* Change this line */
-    "moduleResolution": "bundler",      /* Ensures your bundler handles files correctly */
+    "module": "es2022" /* Change this line */,
+    "moduleResolution": "bundler" /* Ensures your bundler handles files correctly */,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,

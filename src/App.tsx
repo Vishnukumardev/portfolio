@@ -1,13 +1,13 @@
-import React from 'react';
-import { PortfolioContainer } from './portfolio-container/PortfolioContainer'
-import { LoaderBar } from './utilities/commonUtils'
-import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
+import React from "react";
+import { PortfolioContainer } from "./portfolio-container/PortfolioContainer";
+import { LoaderBar } from "./utilities/commonUtils";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 function App() {
   return (
     <div>
-     <ToastContainer />
+      <ToastContainer />
       <LoaderBar />
       <PortfolioContainer />
     </div>
@@ -15,4 +15,3 @@ function App() {
 }
 
 export default App;
-    

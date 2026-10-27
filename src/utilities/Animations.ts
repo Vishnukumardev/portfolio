@@ -1,5 +1,4 @@
 export default class Animations {
-
   /* SINGLETON CLASS INSTANCE */
   static animations: Animations = new Animations();
 

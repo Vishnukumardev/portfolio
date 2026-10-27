@@ -1,84 +1,85 @@
-import React, { useEffect, useCallback } from 'react'
-import ScreenHeading from '../../utilities/ScreenHeading/ScreenHeading';
-import ScrollService from '../../utilities/ScrollService';
-import Animations from '../../utilities/Animations';
+import React, { useEffect, useCallback } from "react";
+import ScreenHeading from "../../utilities/ScreenHeading/ScreenHeading";
+import ScrollService from "../../utilities/ScrollService";
+import Animations from "../../utilities/Animations";
 
-import './AboutMe.css';
+import "./AboutMe.css";
 
-const SCREEN_CONSTANTS = { 
-    description: "Mobile apps developing is my strong side of my skills. Apart from that, I am also able to work on full stack development also.I am willing to become an valuable asset to an organisation. ",
-    highlights: {
-        bullets: [
-            "Flutter Mobile App development",
-            "Interactive Front End as per the design",
-            "React web development",
-            "Android Mobile Development",
-            "Gis Web Apps",         
-       ],
-       heading: "Here are a Few Highlights:"
-    }
-}
+const SCREEN_CONSTANTS = {
+  description:
+    "Mobile apps developing is my strong side of my skills. Apart from that, I am also able to work on full stack development also.I am willing to become an valuable asset to an organisation. ",
+  highlights: {
+    bullets: [
+      "Flutter Mobile App development",
+      "Interactive Front End as per the design",
+      "React web development",
+      "Android Mobile Development",
+      "Gis Web Apps",
+    ],
+    heading: "Here are a Few Highlights:",
+  },
+};
 
-const AboutMe = (props : { id?: string }) => {
+const AboutMe = (props: { id?: string }) => {
+  const fadeInScreenHandler = useCallback(
+    (screen: { fadeInScreen?: string }) => {
+      if (screen.fadeInScreen !== props.id) return;
+      Animations.animations.fadeInScreen(props.id || "");
+    },
+    [props.id],
+  );
 
-    const fadeInScreenHandler = useCallback((screen : { fadeInScreen?: string }) => {
-        if(screen.fadeInScreen !== props.id)
-        return;
-        Animations.animations.fadeInScreen(props.id || '');
-    }, [props.id]);
+  const renderHighlights = () => {
+    return SCREEN_CONSTANTS.highlights.bullets.map((value, i) => (
+      <div className="highlight" key={i}>
+        <div className="highlight-blob"></div>
+        <span>{value}</span>
+      </div>
+    ));
+  };
 
-    const renderHighlights = () => {
-        return (
-            SCREEN_CONSTANTS.highlights.bullets.map((value,i) => (
-                <div className="highlight" key={i}>
-                    <div className="highlight-blob"></div>
-                    <span>{ value }</span>
-                </div>
-            ))
-        )
-    }
+  // Fixed: Subscription is now declared and cleaned up inside the same hook
+  useEffect(() => {
+    const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe((value: unknown) =>
+      fadeInScreenHandler(value as { fadeInScreen?: string }),
+    );
 
-const login = () => {
-    
-}
+    return () => {
+      fadeInSubscription.unsubscribe();
+    };
+  }, [fadeInScreenHandler]);
 
-    // Fixed: Subscription is now declared and cleaned up inside the same hook
- useEffect(() => {
-        const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe(
-            (value: unknown) => fadeInScreenHandler(value as { fadeInScreen?: string })
-        );
-        
-        return () => {
-            fadeInSubscription.unsubscribe();
-        }
-    }, [fadeInScreenHandler]);
-
-    return (
-        <div className="about-me-container screen-container fade-in" id={ props.id || ''}>
-            <div className="about-me-parent">
-            <ScreenHeading title={'About Me'} subHeading={'Why Choose Me?'} />
-            <div className="about-me-card">
-                <div className="about-me-profile"></div>
-                <div className="about-me-details">
-                    <span className="about-me-description">{SCREEN_CONSTANTS.description}</span>
-                    <div className="about-me-highlights">
-                        <div className="highlight-heading">
-                            <span>{ SCREEN_CONSTANTS.highlights.heading }</span>
-                        </div>
-                        { renderHighlights() }
-                    </div>
-                    <div className="about-me-options">
-                         <button className="btn primary-btn" onClick={() => ScrollService.scrollHandler.scrollToHireMe()}> Hire Me </button>
-                         <a href="Vishnu Kumar N.pdf" download="Vishnu Kumar.pdf">
-                            <button className="btn highlighted-btn"> Get Resume </button>
-                         </a>
-                         <button className="btn primary-btn" onClick={() => ScrollService.scrollHandler.scrollToHireMe()}> Login </button>
-                    </div>
-                </div>
-                </div>
+  return (
+    <div className="about-me-container screen-container fade-in" id={props.id || ""}>
+      <div className="about-me-parent">
+        <ScreenHeading title={"About Me"} subHeading={"Why Choose Me?"} />
+        <div className="about-me-card">
+          <div className="about-me-profile"></div>
+          <div className="about-me-details">
+            <span className="about-me-description">{SCREEN_CONSTANTS.description}</span>
+            <div className="about-me-highlights">
+              <div className="highlight-heading">
+                <span>{SCREEN_CONSTANTS.highlights.heading}</span>
+              </div>
+              {renderHighlights()}
             </div>
+            <div className="about-me-options">
+              <button
+                className="btn primary-btn"
+                onClick={() => ScrollService.scrollHandler.scrollToHireMe()}
+              >
+                {" "}
+                Hire Me{" "}
+              </button>
+              <a href="/assets/files/resume.pdf" download="Vishnu Kumar N.pdf">
+                <button className="btn highlighted-btn"> Get Resume </button>
+              </a>
+            </div>
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default React.memo(AboutMe);

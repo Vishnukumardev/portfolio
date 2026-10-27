@@ -4,11 +4,11 @@ import ScrollService from "../../utilities/ScrollService";
 import Animations from "../../utilities/Animations";
 import "./Resume.css";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import eduLogo from '../../assets/Resume/education.svg';
-import worklogo from '../../assets/Resume/work-history.svg';
-import interLogo from '../../assets/Resume/interests.svg';
-import programLogo from '../../assets/Resume/programming-skills.svg';
-import projectLogo from '../../assets/Resume/projects.svg'
+import eduLogo from "../../assets/Resume/education.svg";
+import worklogo from "../../assets/Resume/work-history.svg";
+import interLogo from "../../assets/Resume/interests.svg";
+import programLogo from "../../assets/Resume/programming-skills.svg";
+import projectLogo from "../../assets/Resume/projects.svg";
 
 /* 1. DEFINE EXPLICIT TYPES FOR ALL COMPONENT INTERFACES */
 interface ResumeProps {
@@ -39,9 +39,7 @@ const ResumeHeading: React.FC<ResumeHeadingProps> = memo((props) => {
         <div className="heading-bullet"></div>
         <span>{props.heading ? props.heading : ""}</span>
         {props.fromDate && props.toDate ? (
-          <div className="heading-date">
-            {props.fromDate + "-" + props.toDate}
-          </div>
+          <div className="heading-date">{props.fromDate + "-" + props.toDate}</div>
         ) : (
           <div />
         )}
@@ -71,9 +69,7 @@ const WorkHeading: React.FC<WorkHeadingProps> = memo((props) => {
         <div className="heading-bullet"></div>
         <span>{props.heading ? props.heading : ""}</span>
         {props.fromDate && props.toDate ? (
-          <div className="heading-date">
-            {props.fromDate + "-" + props.toDate}
-          </div>
+          <div className="heading-date">{props.fromDate + "-" + props.toDate}</div>
         ) : (
           <div />
         )}
@@ -152,7 +148,7 @@ const PROJECTS = [
     description:
       "Contributed to the HomeFood project by resolving production issues and implementing new features as part of the development team. Applied MVC architecture and GetX for efficient state management. Integrated a payment gateway and Google Maps APIs for location tracking. Began learning Laravel to meet project backend requirements and implemented APIs for backend processing.",
     technologies: "Flutter, MVC Architecture, GetX, Google Maps API, Payment Gateway, Laravel",
-    link: ""
+    link: "",
   },
   {
     title: "AgriIot",
@@ -162,7 +158,7 @@ const PROJECTS = [
     description:
       "Developed modules and implemented features such as an inventory management system. Designed and developed backend using Django to ensure efficient API functionality and seamless data flow. Converted Figma designs into functional UI components using design patterns and integrated backend APIs for a smooth user experience.",
     technologies: "Flutter, Django, API Development, UI Design Patterns, Figma",
-    link: ""
+    link: "",
   },
 ];
 
@@ -171,10 +167,13 @@ const Resume: React.FC<ResumeProps> = (props) => {
   const [carousalOffsetStyle, setCarousalOffsetStyle] = useState<React.CSSProperties>({});
 
   // 2. Safely type-cast telemetry params to pass compilation
-  const fadeInScreenHandler = useCallback((screen: any) => {
-    if (!screen || screen.fadeInScreen !== props.id) return;
-    Animations.animations.fadeInScreen(props.id || '');
-  }, [props.id]);
+  const fadeInScreenHandler = useCallback(
+    (screen: any) => {
+      if (!screen || screen.fadeInScreen !== props.id) return;
+      Animations.animations.fadeInScreen(props.id || "");
+    },
+    [props.id],
+  );
 
   // 3. Merged layout creation and unsubscription safely inside useEffect
   useEffect(() => {
@@ -189,7 +188,7 @@ const Resume: React.FC<ResumeProps> = (props) => {
   const handleCarousal = (index: number) => {
     let offsetHeight = 360; // Set this matching your standard item CSS container wrapper box height
     setCarousalOffsetStyle({
-      transform: `translateY(-${index * offsetHeight}px)`
+      transform: `translateY(-${index * offsetHeight}px)`,
     });
     setSelectedBulletIndex(index);
   };
@@ -201,87 +200,88 @@ const Resume: React.FC<ResumeProps> = (props) => {
         className={index === selectedBulletIndex ? "bullet selected-bullet" : "bullet"}
         key={index}
       >
-        <img
-          className="bullet-logo"
-          src={bullet.logoSrc}
-          alt={bullet.label}
-        />
+        <img className="bullet-logo" src={bullet.logoSrc} alt={bullet.label} />
         <span className="bullet-label">{bullet.label}</span>
       </div>
     ));
   };
 
-
-  const resumeDetails = useMemo(() => [
-    /* EDUCATION */
-    <div className="resume-screen-container" key="education">
-      {EDUCATION_DETAILS.map((edu, index) => (
-        <ResumeHeading
-          key={index}
-          heading={edu.title}
-          subHeading={edu.subTitle}
-          fromDate={edu.fromDate}
-          toDate={edu.toDate}
-        />
-      ))}
-    </div>,
-    /* WORK EXPERIENCE */
-    <div className="resume-screen-container" key="work-experience">
-      <div className="experience-container">
-        {WORK_EXPERIENCE.map((work, index) => (
-          <WorkHeading
+  const resumeDetails = useMemo(
+    () => [
+      /* EDUCATION */
+      <div className="resume-screen-container" key="education">
+        {EDUCATION_DETAILS.map((edu, index) => (
+          <ResumeHeading
             key={index}
-            heading={work.company}
-            subHeading={work.role}
-            fromDate={work.fromDate}
-            toDate={work.toDate}
-            description={work.description}
-            technologies={`Technologies: ${work.technologies}`}
+            heading={edu.title}
+            subHeading={edu.subTitle}
+            fromDate={edu.fromDate}
+            toDate={edu.toDate}
           />
         ))}
-      </div>
-    </div>,
-    /* PROGRAMMING SKILLS */
-    <div className="resume-screen-container programming-skills-container" key="programming-skills">
-      {PROGRAMMING_SKILLS.map((skill, index) => (
-        <div className="skill-parent" key={index}>
-          <div className="heading-bullet"></div>
-          <span>{skill.skill}</span>
-          <div className="skill-percentage">
-            <div
-              style={{ width: skill.ratingPercentage + "%" }}
-              className="active-percentage-bar"
-            ></div>
-          </div>
+      </div>,
+      /* WORK EXPERIENCE */
+      <div className="resume-screen-container" key="work-experience">
+        <div className="experience-container">
+          {WORK_EXPERIENCE.map((work, index) => (
+            <WorkHeading
+              key={index}
+              heading={work.company}
+              subHeading={work.role}
+              fromDate={work.fromDate}
+              toDate={work.toDate}
+              description={work.description}
+              technologies={`Technologies: ${work.technologies}`}
+            />
+          ))}
         </div>
-      ))}
-    </div>,
-    /* PROJECTS */
-    <div className="resume-screen-container" key="projects">
-      {PROJECTS.map((projectsDetails, index) => (
+      </div>,
+      /* PROGRAMMING SKILLS */
+      <div
+        className="resume-screen-container programming-skills-container"
+        key="programming-skills"
+      >
+        {PROGRAMMING_SKILLS.map((skill, index) => (
+          <div className="skill-parent" key={index}>
+            <div className="heading-bullet"></div>
+            <span>{skill.skill}</span>
+            <div className="skill-percentage">
+              <div
+                style={{ width: skill.ratingPercentage + "%" }}
+                className="active-percentage-bar"
+              ></div>
+            </div>
+          </div>
+        ))}
+      </div>,
+      /* PROJECTS */
+      <div className="resume-screen-container" key="projects">
+        {PROJECTS.map((projectsDetails, index) => (
+          <ResumeHeading
+            key={index}
+            heading={projectsDetails.title}
+            subHeading={projectsDetails.role}
+            fromDate={projectsDetails.fromDate}
+            toDate={projectsDetails.toDate}
+            description={projectsDetails.description}
+            link={projectsDetails.link}
+          />
+        ))}
+      </div>,
+      /* INTERESTS (Completed implementation from broken prompt snippet) */
+      <div className="resume-screen-container" key="interests">
         <ResumeHeading
-          key={index}
-          heading={projectsDetails.title}
-          subHeading={projectsDetails.role}
-          fromDate={projectsDetails.fromDate}
-          toDate={projectsDetails.toDate}
-          description={projectsDetails.description}
-          link={projectsDetails.link}
+          heading="Teaching"
+          description="I believe that teaching is a part of learning also. With teaching, I can develop my skills as understanding my ability to learn new tech everyday."
         />
-      ))}
-    </div>,
-    /* INTERESTS (Completed implementation from broken prompt snippet) */
-    <div className="resume-screen-container" key="interests">
-      <ResumeHeading
-        heading="Teaching"
-        description="I believe that teaching is a part of learning also. With teaching, I can develop my skills as understanding my ability to learn new tech everyday."
-      />
-      <ResumeHeading
-        heading="Music"
-        description="Listening to soothing music is something I can never avoid in my daily life, as it helps me unwind and focus."
-      />
-    </div>,
-  ], []);
+        <ResumeHeading
+          heading="Music"
+          description="Listening to soothing music is something I can never avoid in my daily life, as it helps me unwind and focus."
+        />
+      </div>,
+    ],
+    [],
+  );
 
   return (
     <div className="resume-container screen-container" id={props.id || ""}>

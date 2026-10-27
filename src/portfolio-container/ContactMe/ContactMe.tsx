@@ -19,12 +19,15 @@ interface ContactMeProps {
 
 const ContactMe: React.FC<ContactMeProps> = (props) => {
   const form = useRef<HTMLFormElement>(null);
-  
+
   // 2. Accept any/unknown parameter type to perfectly match the emitter's stream type signature
-  const fadeInScreenHandler = useCallback((screen: any) => {
-    if (!screen || screen.fadeInScreen !== props.id) return;
-    Animations.animations.fadeInScreen(props.id || '');
-  }, [props.id]);
+  const fadeInScreenHandler = useCallback(
+    (screen: any) => {
+      if (!screen || screen.fadeInScreen !== props.id) return;
+      Animations.animations.fadeInScreen(props.id || "");
+    },
+    [props.id],
+  );
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,30 +48,23 @@ const ContactMe: React.FC<ContactMeProps> = (props) => {
   const formSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!form.current) return;
-    
+
     setBool(true);
-    emailjs
-      .sendForm(
-        "service_fln8mtv",
-        "template_4102fp6",
-        form.current,
-        "GKttJ7c8af9ZPsGFg"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setBanner("Message sent successfully!");
-          setName("");
-          setEmail("");
-          setMessage("");
-          setBool(false);
-        },
-        (error) => {
-          console.log(error.text);
-          setBanner("Failed to send message. Try again.");
-          setBool(false);
-        }
-      );
+    emailjs.sendForm("service_fln8mtv", "template_4102fp6", form.current, "GKttJ7c8af9ZPsGFg").then(
+      (result) => {
+        console.log(result.text);
+        setBanner("Message sent successfully!");
+        setName("");
+        setEmail("");
+        setMessage("");
+        setBool(false);
+      },
+      (error) => {
+        console.log(error.text);
+        setBanner("Failed to send message. Try again.");
+        setBool(false);
+      },
+    );
   }, []);
 
   const handleReset = useCallback(() => {
@@ -101,10 +97,20 @@ const ContactMe: React.FC<ContactMeProps> = (props) => {
             <p>{banner}</p>
             <input type="hidden" name="to_name" value="Vishnu Kumar" />
             <label htmlFor="name">Name</label>
-            <input type="text" name="from_name" value={name} onChange={(e) => setName(e.target.value)} />
+            <input
+              type="text"
+              name="from_name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
             <label htmlFor="email">Email</label>
-            <input type="email" name="reply_to" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              name="reply_to"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
             <label htmlFor="message">Message</label>
             <textarea name="message" value={message} onChange={(e) => setMessage(e.target.value)} />
@@ -120,7 +126,9 @@ const ContactMe: React.FC<ContactMeProps> = (props) => {
                   ""
                 )}
               </button>
-              <button type="reset" onClick={handleReset}>Clear</button>
+              <button type="reset" onClick={handleReset}>
+                Clear
+              </button>
             </div>
           </form>
         </div>

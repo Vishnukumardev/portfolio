@@ -1,38 +1,34 @@
-import React, { useRef, useEffect, lazy } from 'react';
+import React, { useRef, useEffect, lazy } from "react";
 // Ensure you are importing LoadingBarRef explicitly as a type
-import LoadingBar, { LoadingBarRef } from 'react-top-loading-bar';
+import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 // Ensure your loader-service has a corresponding .d.ts file or is written in TS
-import loaderService from '../services/loader-service/loader-service';
-import './commonUtils.css';
+import loaderService from "../services/loader-service/loader-service";
+import "./commonUtils.css";
 
 /* LAZY LOAD COMPONENTS FOR BETTER CODE SPLITTING */
-const Home = lazy(() => import('../portfolio-container/Home/Home'));
-const AboutMe = lazy(() => import('../portfolio-container/AboutMe/AboutMe'));
-const Resume = lazy(() => import('../portfolio-container/Resume/Resume'));
-const ContactMe = lazy(() => import('../portfolio-container/ContactMe/ContactMe'));
+const Home = lazy(() => import("../portfolio-container/Home/Home"));
+const AboutMe = lazy(() => import("../portfolio-container/AboutMe/AboutMe"));
+const Resume = lazy(() => import("../portfolio-container/Resume/Resume"));
+const ContactMe = lazy(() => import("../portfolio-container/ContactMe/ContactMe"));
 
 /* TOTAL NUMBER OF SCREENS */
 export const TOTAL_SCREENS = [
   { screen_name: "Home", component: Home },
   { screen_name: "About Me", component: AboutMe },
   { screen_name: "Resume", component: Resume },
-  { screen_name: "Contact Me", component: ContactMe }
-
+  { screen_name: "Contact Me", component: ContactMe },
 ];
 
 /* GET SCREEN INDEX */
 export const GET_SCREEN_INDEX = (screen_name: string) => {
-  if (!screen_name)
-    return -1;
+  if (!screen_name) return -1;
 
   for (let i = 0; i < TOTAL_SCREENS.length; i++) {
-    if (TOTAL_SCREENS[i].screen_name === screen_name)
-      return i;
+    if (TOTAL_SCREENS[i].screen_name === screen_name) return i;
   }
 
   return -1;
-}
-
+};
 
 /* 4. TYPED LOADING BAR COMPONENT */
 export const LoaderBar: React.FC = () => {
@@ -44,7 +40,7 @@ export const LoaderBar: React.FC = () => {
     height: 4,
     ref: loaderReference,
     transitionTime: 1000,
-    className: 'loading-bar'
+    className: "loading-bar",
   };
 
   const invokeLoadingBar = () => {
@@ -59,7 +55,7 @@ export const LoaderBar: React.FC = () => {
     // 1. Change the parameter type to unknown to match the emitter's signature
     const loaderChangeHandler = (changeType: unknown) => {
       // 2. Type-guard to ensure the value is a string before checking cases
-      if (typeof changeType !== 'string') return;
+      if (typeof changeType !== "string") return;
 
       switch (changeType) {
         case "start":
@@ -74,7 +70,8 @@ export const LoaderBar: React.FC = () => {
     };
 
     // 3. Subscription now compiles perfectly
-    const loaderChangeSubscription = loaderService.loaderChangeEmitter.subscribe(loaderChangeHandler);
+    const loaderChangeSubscription =
+      loaderService.loaderChangeEmitter.subscribe(loaderChangeHandler);
 
     return () => {
       /* UNSUBSCRIBE THE SUBSCRIPTIONS */

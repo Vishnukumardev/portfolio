@@ -2,14 +2,12 @@ import React, { memo } from "react";
 import ScrollService from ".././../../utilities/ScrollService";
 import "./Profile.css";
 import Typical from "react-typical";
-const resumeFile = require("../../../assets/files/resume.pdf");
 
 const Profile: React.FC = memo(() => {
   return (
     <div className="profile-container">
       <div className="profile-parent">
         <div className="profile-details">
-      
           <div className="profile-details-name">
             <span className="primary-text">
               {" "}
@@ -17,7 +15,9 @@ const Profile: React.FC = memo(() => {
             </span>
           </div>
           <div className="profile-details-role">
-            <div className="primary-text"> {/* Fixed: Changed <span> containing an <h1> to a <div> to adhere to valid HTML semantics */}
+            <div className="primary-text">
+              {" "}
+              {/* Fixed: Changed <span> containing an <h1> to a <div> to adhere to valid HTML semantics */}
               <h1>
                 {" "}
                 <Typical
@@ -48,7 +48,7 @@ const Profile: React.FC = memo(() => {
               {" "}
               Hire Me{" "}
             </button>
-            <a href={resumeFile} download="resume.pdf">
+            <a href="/assets/files/resume.pdf" download="Vishnu Kumar N.pdf">
               <button className="btn highlighted-btn"> Get Resume </button>
             </a>
           </div>
