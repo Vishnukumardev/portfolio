@@ -9,7 +9,7 @@ import Footer from "../Footer/Footer";
 import Typical from "react-typical";
 import emailjs from "@emailjs/browser";
 import imgBack from "../../../src/images/im4.jpg";
-const load1 = require("../../../src/images/load2.gif");
+import load1 from "../../../src/images/load2.gif";
 
 // 1. Define explicit TypeScript types for component props
 interface ContactMeProps {
@@ -98,6 +98,7 @@ const ContactMe: React.FC<ContactMeProps> = (props) => {
             <input type="hidden" name="to_name" value="Vishnu Kumar" />
             <label htmlFor="name">Name</label>
             <input
+              id="name"
               type="text"
               name="from_name"
               value={name}
@@ -106,6 +107,7 @@ const ContactMe: React.FC<ContactMeProps> = (props) => {
 
             <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               name="reply_to"
               value={email}
@@ -113,9 +115,15 @@ const ContactMe: React.FC<ContactMeProps> = (props) => {
             />
 
             <label htmlFor="message">Message</label>
-            <textarea name="message" value={message} onChange={(e) => setMessage(e.target.value)} />
+            <textarea
+              id="message"
+              name="message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
 
             <div className="send-btn">
+              a
               <button type="submit">
                 Send <i className="fa fa-paper-plane"></i>
                 {bool ? (

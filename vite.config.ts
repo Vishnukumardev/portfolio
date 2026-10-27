@@ -1,6 +1,11 @@
 import { defineConfig } from "vite-plus";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  plugins: [react() as any],
+  define: {
+    "process.env": {},
+  },
   staged: {
     "*": "vp check --fix",
   },
@@ -15,5 +20,10 @@ export default defineConfig({
       usePolling: true,
     },
     host: true,
+  },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/setupTests.ts",
   },
 });
